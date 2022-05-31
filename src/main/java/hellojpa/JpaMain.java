@@ -17,14 +17,11 @@ public class JpaMain {
         transaction.begin();
 
         try {
-            Member member1 = new Member(150L, "A");
-            Member member2 = new Member(160L, "B");
+            Member findMember = em.find(Member.class, 150L);
+            findMember.setName("Changed");
 
-            // 영속성 컨텍스트에 객체, 쿼리문 저장
-            em.persist(member1);
-            em.persist(member2);
+            // em.update(findMember) 이런 코드가 필요한거 아니야?
 
-            // 커밋 직전에 쿼리문이 DB로 날라가게 됨
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
