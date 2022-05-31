@@ -18,12 +18,7 @@ public class JpaMain {
 
         try {
             Member member = em.find(Member.class, 150L);
-            member.setName("AAAAA");
             em.detach(member);
-
-            //이것도 가능
-            //em.clear();
-            //em.close();
 
             transaction.commit(); // 아무 일도 일어나지 않음(DB에서 수정되지 않음)
         } catch (Exception e) {
