@@ -17,11 +17,12 @@ public class JpaMain {
         transaction.begin();
 
         try {
-            Member findMember = em.find(Member.class, 150L);
-            findMember.setName("Changed");
+            Member member = new Member(200L, "member200");
+            em.persist(member);
 
-            // em.update(findMember) 이런 코드가 필요한거 아니야?
-
+            System.out.println("======");
+            em.flush();
+            System.out.println("======");
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
