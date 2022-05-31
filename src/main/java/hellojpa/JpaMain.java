@@ -16,11 +16,10 @@ public class JpaMain {
         transaction.begin();
 
         try {
-            Member member = new Member();
-            member.setId(1L);
-            member.setName("helloA");
+            Member findMember = em.find(Member.class, 1L);
+            System.out.println("findMember.getId() = " + findMember.getId());
+            System.out.println("findMember.getName() = " + findMember.getName());
 
-            em.persist(member);
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
