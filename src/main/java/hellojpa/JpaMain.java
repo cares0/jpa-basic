@@ -17,16 +17,23 @@ public class JpaMain {
         transaction.begin();
 
         try {
-            List<Member> result = em.createQuery("select m from Member as m", Member.class)
-                    .setFirstResult(1)
-                    .setMaxResults(10)
-                    .getResultList();
 
-            for (Member member : result) {
-                System.out.println("member.getName() = " + member.getName());
-            }
+            // 비영속 상태
+            Member member = new Member();
+            member.setId(100L);
+            member.setName("HelloJPA");
 
-            // em.persist(findMember);다시 저장 안해도 됨
+            // 영속 상태
+            System.out.println("==== BEFORE ====");
+            em.persist(member);
+            System.out.println("==== AFTER ====");
+
+            //회원 엔티티를 영속성 컨텍스트에서 분리, 준영속 상태
+            em.detach(member);
+
+            //객체를 삭제한 상태(삭제)
+            em.remove(member);
+
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
