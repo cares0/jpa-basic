@@ -17,22 +17,15 @@ public class JpaMain {
         transaction.begin();
 
         try {
-
-            // 비영속 상태
             Member member = new Member();
-            member.setId(100L);
-            member.setName("HelloJPA");
+            member.setId(1L);
+            member.setName("회원1");
 
-            // 영속 상태
-            System.out.println("==== BEFORE ====");
+            //1차 캐시에 저장됨
             em.persist(member);
-            System.out.println("==== AFTER ====");
 
-            //회원 엔티티를 영속성 컨텍스트에서 분리, 준영속 상태
-            em.detach(member);
-
-            //객체를 삭제한 상태(삭제)
-            em.remove(member);
+            //1차 캐시에서 조회
+            Member findMember = em.find(Member.class, "member1");
 
             transaction.commit();
         } catch (Exception e) {
