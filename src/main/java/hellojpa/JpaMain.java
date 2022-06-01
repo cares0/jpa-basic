@@ -17,10 +17,22 @@ public class JpaMain {
         transaction.begin();
 
         try {
-            Member member = em.find(Member.class, 150L);
-            em.detach(member);
+            // 등록 시
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
 
-            transaction.commit(); // 아무 일도 일어나지 않음(DB에서 수정되지 않음)
+            Member member = new Member();
+            member.setUsername("member1");
+            member.setTeamId(team.getId());
+            em.persist(member);
+
+            // 조회 시
+            Member findMember = em.find(Member.class, member.getId());
+            Long teamId = findMember.getTeamId();
+            Team findTeam = em.find(Team.class, teamId);
+
+            transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
         } finally {
