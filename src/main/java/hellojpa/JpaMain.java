@@ -24,13 +24,12 @@ public class JpaMain {
 
             Member member = new Member();
             member.setUsername("member1");
-            member.setTeamId(team.getId());
+            member.setTeam(team);
             em.persist(member);
 
             // 조회 시
             Member findMember = em.find(Member.class, member.getId());
-            Long teamId = findMember.getTeamId();
-            Team findTeam = em.find(Team.class, teamId);
+            Team findTeam = findMember.getTeam();
 
             transaction.commit();
         } catch (Exception e) {
