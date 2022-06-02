@@ -17,7 +17,7 @@ public class JpaMain {
         transaction.begin();
 
         try {
-            // 등록 시
+/*            // 등록 시
             Team team = new Team();
             team.setName("TeamA");
             em.persist(team);
@@ -32,7 +32,7 @@ public class JpaMain {
             for (Member m : members) {
                 System.out.println("m.getUsername() = " + m.getUsername());
                 // 기대하는 것은 member1이 나오는것, 하지만 나오지 않음
-            }
+            }*/
 
             em.flush();
             em.clear();
