@@ -11,6 +11,7 @@ import java.util.List;
 
 public class TestMain {
 
+/*
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
 
@@ -54,5 +55,6 @@ public class TestMain {
 
         emf.close();
     }
+*/
 
 }
