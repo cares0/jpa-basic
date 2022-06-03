@@ -33,8 +33,8 @@ public class JpaMain {
             System.out.println("findMember.getClass() = " + findMember.getClass()); // 원본 객체 반환
 
             Team findTeam = member.getTeam();
-            System.out.println("findTeam.getClass() = " + findTeam.getClass()); // 프록시 객체 반환
-            System.out.println("findTeam.getName() = " + findTeam.getName()); // 실제 사용하는 시점에 초기화
+            System.out.println("findTeam.getClass() = " + findTeam.getClass()); // 원본 객체 반환
+            System.out.println("findTeam.getName() = " + findTeam.getName()); // 이미 사용 시점에 초기화 되어있음
 
 
             transaction.commit();
