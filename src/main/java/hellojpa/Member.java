@@ -15,17 +15,44 @@ public class Member extends BaseEntity {
     @Column(name = "USERNAME") //DB 컬럼명은 name
     private String username;
 
-    @ManyToOne
-    @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "TEAM_ID")
     private Team team;
-
-    @OneToOne
-    @JoinColumn(name = "LOCKER_ID")
-    private Locker locker;
 
     @OneToMany(mappedBy = "member")
     private List<MemberProduct> products = new ArrayList<>();
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public List<MemberProduct> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<MemberProduct> products) {
+        this.products = products;
+    }
 
     public Member() {
     }

@@ -17,24 +17,30 @@ public class JpaMain {
         transaction.begin();
 
         try {
-            // 프록시 객체 반환
-            Member refMember = em.getReference(Member.class, 1L);
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
 
-            // refMember를 영속성 컨텍스트에서 빼버림 -> 준영속 상태
-            em.detach(refMember);
-            // em.close(); --> 영속성 컨텍스트를 닫아버리는 경우도 동일
-
-            // 프록시 객체 사용 -> 예외 발생
-            refMember.getUserName;
+            Member member = new Member();
+            member.setUsername("memberA");
+            member.setTeam(team);
+            em.persist(member);
 
             em.flush();
             em.clear();
 
+            Member findMember = em.find(Member.class, member.getId());
+            System.out.println("findMember.getClass() = " + findMember.getClass()); // 원본 객체 반환
+
+            Team findTeam = member.getTeam();
+            System.out.println("findTeam.getClass() = " + findTeam.getClass()); // 프록시 객체 반환
+            System.out.println("findTeam.getName() = " + findTeam.getName()); // 실제 사용하는 시점에 초기화
 
 
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
+            e.printStackTrace();
         } finally {
             em.close();
         }
