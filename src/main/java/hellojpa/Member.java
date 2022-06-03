@@ -6,55 +6,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Member extends BaseEntity {
+public class Member {
 
     @Id @GeneratedValue
     @Column(name = "MEMBER_ID")
     private Long id;
 
-    @Column(name = "USERNAME") //DB 컬럼명은 name
+    @Column(name = "USERNAME")
     private String username;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "TEAM_ID")
-    private Team team;
+    @Embedded
+    private Period period;
 
-    @OneToMany(mappedBy = "member")
-    private List<MemberProduct> products = new ArrayList<>();
+    @Embedded
+    private Address homeAddress;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
-    }
-
-    public List<MemberProduct> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<MemberProduct> products) {
-        this.products = products;
-    }
-
-    public Member() {
-    }
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "city", column = @Column("WORK_CITY")),
+            @AttributeOverride(name = "street", column = @Column("WORK_STREET")),
+            @AttributeOverride(name = "zipcode", column = @Column("WORK_ZIPCODE")),
+    })
+    private Address workAddress;
 
 }
