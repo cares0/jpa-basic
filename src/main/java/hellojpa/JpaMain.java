@@ -17,25 +17,16 @@ public class JpaMain {
         transaction.begin();
 
         try {
-            Team team = new Team();
-            team.setName("TeamA");
-            em.persist(team);
 
-            Member member = new Member();
-            member.setUsername("memberA");
-            member.setTeam(team);
-            em.persist(member);
+            Child child1 = new Child();
+            Child child2 = new Child();
 
-            em.flush();
-            em.clear();
+            Parent parent = new Parent();
+            child1.setParent(parent);
 
-            Member findMember = em.find(Member.class, member.getId());
-            System.out.println("findMember.getClass() = " + findMember.getClass()); // 원본 객체 반환
-
-            Team findTeam = member.getTeam();
-            System.out.println("findTeam.getClass() = " + findTeam.getClass()); // 원본 객체 반환
-            System.out.println("findTeam.getName() = " + findTeam.getName()); // 이미 사용 시점에 초기화 되어있음
-
+            //em.persist(parent);
+            em.persist(child1);
+            //em.persist(child2);
 
             transaction.commit();
         } catch (Exception e) {
