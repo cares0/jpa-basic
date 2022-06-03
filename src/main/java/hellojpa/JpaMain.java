@@ -17,22 +17,15 @@ public class JpaMain {
         transaction.begin();
 
         try {
-/*            // 등록 시
-            Team team = new Team();
-            team.setName("TeamA");
-            em.persist(team);
+            // 프록시 객체 반환
+            Member refMember = em.getReference(Member.class, 1L);
 
-            Member member = new Member();
-            member.setUsername("member1");
-            member.changeTeam(team);
-            em.persist(member);
+            // refMember를 영속성 컨텍스트에서 빼버림 -> 준영속 상태
+            em.detach(refMember);
+            // em.close(); --> 영속성 컨텍스트를 닫아버리는 경우도 동일
 
-            Team findTeam = em.find(Team.class, team.getId());
-            List<Member> members = findTeam.getMembers();
-            for (Member m : members) {
-                System.out.println("m.getUsername() = " + m.getUsername());
-                // 기대하는 것은 member1이 나오는것, 하지만 나오지 않음
-            }*/
+            // 프록시 객체 사용 -> 예외 발생
+            refMember.getUserName;
 
             em.flush();
             em.clear();
