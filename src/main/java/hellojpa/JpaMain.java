@@ -17,20 +17,14 @@ public class JpaMain {
         transaction.begin();
 
         try {
+            Address address = new Address("city", "street", "10000");
+            Member member1 = new Member();
+            member1.setUsername("member1");
+            member1.setHomeAddress(address);
+            em.persist(member1);
 
-            Child child1 = new Child();
-            Child child2 = new Child();
-
-            Parent parent = new Parent();
-            child1.setParent(parent);
-
-            em.persist(parent);
-
-            em.flush();
-            em.clear();
-
-            Parent findParent = em.find(Parent.class, parent.getId());
-            findParent.getChildList().remove(0);
+            Address modifiedAddress = new Address("new City", address.getStreet(), address.getZipcode());
+            member1.setHomeAddress(modifiedAddress);
 
 
             transaction.commit();
